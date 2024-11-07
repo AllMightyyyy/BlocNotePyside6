@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Note Editor Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        code {
+            background-color: #eef;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+        pre {
+            background-color: #eef;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: #ecf0f1;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Note Editor Documentation</h1>
+    <nav>
+        <a href="#introduction">Introduction</a>
+        <a href="#getting-started">Getting Started</a>
+        <a href="#modules">Modules</a>
+        <a href="#features">Features</a>
+        <a href="#classes-and-methods">Classes & Methods</a>
+        <a href="#conclusion">Conclusion</a>
+    </nav>
+
+    <div class="section" id="introduction">
+        <h2>Introduction</h2>
+        <p>
+            **Note Editor** is a feature-rich text editor built using <strong>PySide6</strong>. It offers functionalities such as file operations, PDF export, spell checking, word count, theme toggling, and an offline dictionary using NLTK's WordNet.
+        </p>
+    </div>
+
+    <div class="section" id="getting-started">
+        <h2>Getting Started</h2>
+        <p>
+            To run the Note Editor, ensure you have Python installed along with the required libraries. Follow these steps:
+        </p>
+        <ol>
+            <li>Clone the repository or download the source code.</li>
+            <li>Install the required dependencies using pip:
+                <pre><code>pip install -r requirements.txt</code></pre>
+            </li>
+            <li>Download NLTK's WordNet data:
+                <pre><code>python -c "import nltk; nltk.download('wordnet'); nltk.download('omw-1.4')"</code></pre>
+            </li>
+            <li>Run the application:
+                <pre><code>python main.py</code></pre>
+            </li>
+        </ol>
+    </div>
+
+    <div class="section" id="modules">
+        <h2>Modules</h2>
+        <ul>
+            <li><strong>main.py</strong>: The entry point of the application.</li>
+            <li><strong>main_window.py</strong>: Contains the MainWindow class which orchestrates the application's main functionalities.</li>
+            <li><strong>widgets</strong>:
+                <ul>
+                    <li><strong>editor.py</strong>: Defines the Editor class extending QTextEdit with additional features.</li>
+                    <li><strong>menu_bar.py</strong>: Defines the MenuBar class managing the application's menu.</li>
+                    <li><strong>tool_bar.py</strong>: Defines the ToolBar class managing the application's toolbar.</li>
+                    <li><strong>status_bar.py</strong>: Defines the StatusBar class managing the status bar.</li>
+                    <li><strong>find_replace_dialog.py</strong>: Defines the FindReplaceDialog class for find and replace functionality.</li>
+                </ul>
+            </li>
+            <li><strong>utils</strong>:
+                <ul>
+                    <li><strong>helpers.py</strong>: Contains utility functions like word counting.</li>
+                    <li><strong>file_operations.py</strong>: Contains functions for file dialog operations.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section" id="features">
+        <h2>Features</h2>
+        <ul>
+            <li><strong>File Operations:</strong> Create, open, save, and export files in various formats.</li>
+            <li><strong>PDF Export:</strong> Export the current document as a PDF.</li>
+            <li><strong>Find and Replace:</strong> Search for and replace text within the document.</li>
+            <li><strong>Spell Check:</strong> Highlight misspelled words using a spell checker.</li>
+            <li><strong>Word Count:</strong> Display the total word count of the document.</li>
+            <li><strong>Theme Toggling:</strong> Switch between light and dark themes.</li>
+            <li><strong>Autosave:</strong> Automatically save the document at regular intervals.</li>
+            <li><strong>Offline Dictionary:</strong> Look up word definitions using NLTK's WordNet.</li>
+        </ul>
+    </div>
+
+    <div class="section" id="classes-and-methods">
+        <h2>Classes & Methods</h2>
+
+        <h3>MainWindow (main_window.py)</h3>
+        <p>
+            The <code>MainWindow</code> class is the central component of the application. It manages the main interface and orchestrates various functionalities.
+        </p>
+        <h4>Methods:</h4>
+        <ul>
+            <li><strong>__init__()</strong>: Initializes the main window, sets up the UI components, and initializes autosave.</li>
+            <li><strong>init_ui()</strong>: Sets up the editor, status bar, menu bar, tool bar, theme, and autosave timer.</li>
+            <li><strong>new_file()</strong>: Creates a new file after checking for unsaved changes.</li>
+            <li><strong>open_file()</strong>: Opens an existing file with supported formats.</li>
+            <li><strong>save_file()</strong>: Saves the current file. If no file is open, it calls <code>save_file_as()</code>.</li>
+            <li><strong>save_file_as()</strong>: Saves the current document to a new file.</li>
+            <li><strong>export_as_pdf()</strong>: Exports the current document as a PDF file.</li>
+            <li><strong>maybe_save()</strong>: Prompts the user to save unsaved changes.</li>
+            <li><strong>toggle_toolbar(state)</strong>: Shows or hides the toolbar based on the state.</li>
+            <li><strong>toggle_statusbar(state)</strong>: Shows or hides the status bar based on the state.</li>
+            <li><strong>zoom_in()</strong>: Increases the font size in the editor.</li>
+            <li><strong>zoom_out()</strong>: Decreases the font size in the editor, not going below a minimum size.</li>
+            <li><strong>reset_zoom()</strong>: Resets the font size to the default value.</li>
+            <li><strong>find_text(text)</strong>: Finds the next occurrence of the specified text.</li>
+            <li><strong>replace_text(find_text, replace_text)</strong>: Replaces the current selection if it matches <code>find_text</code> with <code>replace_text</code>.</li>
+            <li><strong>replace_all_text(find_text, replace_text)</strong>: Replaces all occurrences of <code>find_text</code> with <code>replace_text</code> in the document.</li>
+            <li><strong>change_font()</strong>: Opens a font dialog to change the editor's font.</li>
+            <li><strong>change_text_color()</strong>: Opens a color dialog to change the text color.</li>
+            <li><strong>change_bg_color()</strong>: Opens a color dialog to change the background color.</li>
+            <li><strong>add_bullets()</strong>: Adds a bulleted list to the current cursor position.</li>
+            <li><strong>add_numbering()</strong>: Adds a numbered list to the current cursor position.</li>
+            <li><strong>show_word_count()</strong>: Displays the total word count in a message box.</li>
+            <li><strong>spell_check()</strong>: Triggers the spell checker to rehighlight misspelled words.</li>
+            <li><strong>open_thesaurus()</strong>: Looks up the definition of the selected word using NLTK's WordNet.</li>
+            <li><strong>select_language()</strong>: Allows the user to select a language (placeholder functionality).</li>
+            <li><strong>open_documentation()</strong>: Opens the documentation HTML page in the default web browser.</li>
+            <li><strong>show_about()</strong>: Displays an "About" dialog with application information.</li>
+            <li><strong>check_updates()</strong>: Checks for application updates (placeholder functionality).</li>
+            <li><strong>apply_theme(theme_name)</strong>: Applies the specified theme by loading the corresponding QSS file.</li>
+            <li><strong>toggle_theme()</strong>: Toggles between light and dark themes.</li>
+            <li><strong>init_autosave()</strong>: Initializes the autosave timer.</li>
+            <li><strong>autosave()</strong>: Saves the current document to a temporary autosave file.</li>
+        </ul>
+
+        <h3>ToolBar (widgets/tool_bar.py)</h3>
+        <p>
+            The <code>ToolBar</code> class extends <code>QToolBar</code> and provides quick access to common actions like creating, opening, saving files, undo/redo, cut/copy/paste, find/replace, and theme toggling.
+        </p>
+        <h4>Methods:</h4>
+        <ul>
+            <li><strong>__init__(parent)</strong>: Initializes the toolbar and adds actions with icons.</li>
+            <li><strong>init_toolbar()</strong>: Defines and adds all the toolbar actions.</li>
+            <li><strong>create_icon(filename)</strong>: Helper method to create QIcon objects from filenames.</li>
+        </ul>
+
+        <h3>StatusBar (widgets/status_bar.py)</h3>
+        <p>
+            The <code>StatusBar</code> class extends <code>QStatusBar</code> and displays messages and word count information.
+        </p>
+        <h4>Methods:</h4>
+        <ul>
+            <li><strong>__init__(parent)</strong>: Initializes the status bar with message and word count labels.</li>
+            <li><strong>show_message(message, timeout=5000)</strong>: Displays a temporary message in the status bar.</li>
+            <li><strong>update_word_count(count)</strong>: Updates the word count label.</li>
+        </ul>
+
+        <h3>MenuBar (widgets/menu_bar.py)</h3>
+        <p>
+            The <code>MenuBar</code> class extends <code>QMenuBar</code> and sets up the application's menu structure, including File, Edit, View, Format, Tools, and Help menus.
+        </p>
+        <h4>Methods:</h4>
+        <ul>
+            <li><strong>__init__(parent)</strong>: Initializes the menu bar and calls initialization methods for each menu.</li>
+            <li><strong>init_menu()</strong>: Calls individual methods to initialize each menu.</li>
+            <li><strong>init_file_menu()</strong>: Sets up the File menu with actions like New, Open, Save, Save As, Export, and Exit.</li>
+            <li><strong>init_edit_menu()</strong>: Sets up the Edit menu with actions like Undo, Redo, Cut, Copy, Paste, Find, and Replace.</li>
+            <li><strong>init_view_menu()</strong>: Sets up the View menu with actions to toggle the toolbar and status bar, zoom controls, and theme toggling.</li>
+            <li><strong>init_format_menu()</strong>: Sets up the Format menu with actions to change font, text color, background color, alignment, bullets, and numbering.</li>
+            <li><strong>init_tools_menu()</strong>: Sets up the Tools menu with actions like Word Count, Spell Check, Dictionary, and Language Selection.</li>
+            <li><strong>init_help_menu()</strong>: Sets up the Help menu with actions like Documentation, About, and Check for Updates.</li>
+        </ul>
+
+        <h3>FindReplaceDialog (widgets/find_replace_dialog.py)</h3>
+        <p>
+            The <code>FindReplaceDialog</code> class extends <code>QDialog</code> and provides a user interface for finding and replacing text within the editor.
+        </p>
+        <h4>Methods:</h4>
+        <ul>
+            <li><strong>__init__(parent=None)</strong>: Initializes the dialog and sets up the UI components.</li>
+            <li><strong>setup_ui()</strong>: Creates labels, input fields, and buttons, and arranges them using layouts.</li>
+            <li><strong>find_next()</strong>: Triggers the find next action by calling the parent’s <code>find_text</code> method.</li>
+            <li><strong>replace()</strong>: Replaces the current selection if it matches the search term and triggers the next find.</li>
+            <li><strong>replace_all()</strong>: Replaces all occurrences of the search term with the replacement text.</li>
+            <li><strong>showEvent(event)</strong>: Sets focus to the find input field when the dialog is shown.</li>
+        </ul>
+
+        <h3>Editor (widgets/editor.py)</h3>
+        <p>
+            The <code>Editor</code> class extends <code>QTextEdit</code> and incorporates additional functionalities like word counting and spell checking.
+        </p>
+        <h4>Methods:</h4>
+        <ul>
+            <li><strong>__init__(parent=None)</strong>: Initializes the editor with a default font and connects the textChanged signal to update word count.</li>
+            <li><strong>on_text_changed()</strong>: Updates the word count whenever the text changes.</li>
+        </ul>
+
+        <h4>Classes:</h4>
+        <ul>
+            <li><strong>SpellCheckHighlighter</strong>: Extends <code>QSyntaxHighlighter</code> to highlight misspelled words using NLTK's WordNet.</li>
+            <ul>
+                <li><strong>highlightBlock(text)</strong>: Highlights words not found in the WordNet dictionary.</li>
+            </ul>
+        </ul>
+
+        <h3>Utility Functions</h3>
+
+        <h4>helpers.py</h4>
+        <p>
+            Contains helper functions used across the application.
+        </p>
+        <h5>Functions:</h5>
+        <ul>
+            <li><strong>count_words(text)</strong>: Counts the number of words in the provided text.
+                <pre><code>def count_words(text):
+    words = text.split()
+    return len(words)</code></pre>
+            </li>
+        </ul>
+
+        <h4>file_operations.py</h4>
+        <p>
+            Contains functions for file dialog operations.
+        </p>
+        <h5>Functions:</h5>
+        <ul>
+            <li><strong>open_file_dialog(parent, file_filter="All Files (*.*)")</strong>: Opens a file dialog to select a file to open.
+                <pre><code>def open_file_dialog(parent, file_filter="All Files (*.*)"):
+    file_path, _ = QFileDialog.getOpenFileName(parent, "Open File", os.getenv('HOME'), file_filter)
+    return file_path</code></pre>
+            </li>
+            <li><strong>save_file_dialog(parent, file_filter="All Files (*.*)")</strong>: Opens a file dialog to select a location to save the file.
+                <pre><code>def save_file_dialog(parent, file_filter="All Files (*.*)"):
+    file_path, _ = QFileDialog.getSaveFileName(parent, "Save File", os.getenv('HOME'), file_filter)
+    return file_path</code></pre>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section" id="conclusion">
+        <h2>Conclusion</h2>
+        <p>
+            The **Note Editor** application combines various text editing features into a cohesive and user-friendly interface. By leveraging the power of PySide6 and NLTK's WordNet, it offers both online and offline functionalities, ensuring a robust experience for users.
+        </p>
+        <p>
+            For further assistance or to report issues, please contact the developer.
+        </p>
+    </div>
+</body>
+</html>
